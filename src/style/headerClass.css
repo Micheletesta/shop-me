@@ -1,0 +1,51 @@
+.headerCard{
+    width: 70px;
+    height: 100px;
+    border-radius: 9px;
+    background-color: red;
+    display: inline-block;
+    margin-right: 13px;
+    text-decoration: none;
+}
+
+#card1{
+    background-color: #F3FFC1;
+}
+#card2{
+    background-color: #FFDEF8;
+}
+#card3{
+    background-color: #E8E4FF;
+}
+#card4{
+    background-color: #CDFFD8;
+}
+#card4Img{
+    position: relative;
+    left: 5px;
+}
+
+.headerCardImage{
+    width: 60px;
+    margin: 5px;
+}
+
+.headerCardText{
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    margin: 0;
+}
+
+#cardText1{
+    color: #C4AA00;
+}
+#cardText2{
+    color: #C40086;
+}
+#cardText3{
+    color: #5800C4;
+}
+#cardText4{
+    color: #00C40D;
+}

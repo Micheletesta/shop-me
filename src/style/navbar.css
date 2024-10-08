@@ -1,0 +1,45 @@
+.navbarContainer{
+    position: fixed;
+    text-align: center;
+    z-index: 3;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+    background: white;
+    box-sizing: border-box;
+
+}
+
+.navbarRow{
+    width: 95%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px 49px;
+    box-sizing: border-box;
+}
+
+.navbarIcons{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#shoppingBag{
+    margin-top: -3px;
+}
+
+.navbarIconsImg{
+    width: 40px;
+
+}
+
+.iconSelected{
+    background-color: #F9E7FF;
+}
+
+.iconUnselected{
+    background-color: #F8F8F8;
+}

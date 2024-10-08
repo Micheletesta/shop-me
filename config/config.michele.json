@@ -1,0 +1,37 @@
+{
+    "logger": {
+        "level": "info",
+        "redactPaths": [
+            "body.password",
+            "headers.authorization"
+        ],
+        "writeToFile": false,
+        "path": "../log/logger.log",
+        "logSequelize": true,
+        "prettyPrint": {
+            "translateTime": "SYS:yyyy-mm-dd HH:MM:ss.l o",
+            "messageFormat": false,
+            "singleLine": true
+        }
+    },
+    "sequelize": {
+        "sync": true,
+        "syncForce": false,
+        "dialect": "postgres",
+        "host": "192.168.1.14",
+        "timezone": "+01:00",
+        "useUTC": false,
+        "username": "postgres",
+        "password": "postgres",
+        "schema": "shop-me"
+    },
+    "server": {
+        "port": 3002,
+        "listenAddr": "192.168.1.58"
+    },
+    "maxAdvisedItemsHomePage": 4,
+    "fileStorage": {
+        "Products": "../src/images/Products",
+        "Recipes": "../src/images/Recipes"
+    }
+}

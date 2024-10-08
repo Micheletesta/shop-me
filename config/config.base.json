@@ -1,0 +1,21 @@
+{
+  "logger": {
+    "level": "info",
+    "redactPaths": [
+      "body.password",
+      "headers.authorization"
+    ],
+    "writeToFile": false,
+    "path": "../log/logger.log",
+    "logSequelize": true,
+    "prettyPrint": {
+      "translateTime": "SYS:yyyy-mm-dd HH:MM:ss.l o",
+      "messageFormat": false,
+      "singleLine": true
+    }
+  },
+  "maxAdvisedItemsHomePage": 4,
+  "ngrok": {
+    "authtoken": "2n4J3Jsl8m0RFavoyXxbL6kbfqI_6uwMND3p3WZBPuJ1dcDYV"
+  }
+}
