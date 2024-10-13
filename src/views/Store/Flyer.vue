@@ -99,7 +99,7 @@ export default {
             ":3002/v2/api/shoppingListItems/shoppingListItems",
           this.itemsToAdd
         )
-        .then();
+        .then((this.createdItems = []));
     },
     getStore() {
       axios
