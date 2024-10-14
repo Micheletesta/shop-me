@@ -42,6 +42,10 @@ const fastify = Fastify({
     },
     disableRequestLogging: true,
     pluginTimeout: 10000,
+    https: {
+        key: fs.readFileSync(join(import.meta.url, "config\\key.pem")),
+        cert: fs.readFileSync(join(import.meta.url, "config\\cert.pem"))
+    }
 })
 
 fastify.register(Cors, {
