@@ -21,7 +21,6 @@ export default async function Store(fastify) {
 
     async function onAddItemsToShoppingList(request, reply) {
         let itemsAdded = []
-        console.log(request.body)
         try {
             for (const element of request.body) {
                 let itemAdded = await fastify.sequelizeFacility.insertOrUpdate(fastify.database.models.ShoppingListItems,

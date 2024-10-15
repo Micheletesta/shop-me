@@ -1,5 +1,6 @@
 .headerCard{
-    width: 70px;
+    /* width: 70px; */
+    width:85px;
     height: 100px;
     border-radius: 9px;
     background-color: red;
@@ -26,7 +27,7 @@
 }
 
 .headerCardImage{
-    width: 60px;
+    width: 75px;
     margin: 5px;
 }
 

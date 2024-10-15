@@ -21,7 +21,7 @@ const ShoppingListItem = (sequelize) =>
             allowNull: false
         },
         price: {
-            type: Sequelize.DOUBLE,
+            type: Sequelize.STRING,
             allowNull: true,
         },
         shop: {
