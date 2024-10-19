@@ -21,8 +21,8 @@ async function Scraping(fastify) {
             for (const anchor of aWithBr) {
                 if (anchor.hasAttribute('href')) {
                     hrefs.push(anchor.getAttribute("href"));
-                //    if (stopAfterFirstResult)
-                        break
+                    //    if (stopAfterFirstResult)
+                    break
                 }
 
             }
@@ -31,7 +31,9 @@ async function Scraping(fastify) {
     }
 
     const run = async (searchBy) => {
-        const browser = await puppeteer.launch();
+        let browser = process.env.NODE_ENV != "raspberry"
+            ? await puppeteer.launch()
+            : await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser' })
         const page = await browser.newPage();
         const url = "https://www.doveconviene.it/volantino/" + searchBy.searchText
         await page.goto(url, { waitUntil: 'load' });
