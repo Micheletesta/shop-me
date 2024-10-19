@@ -12,6 +12,10 @@ const Store = (sequelize) =>
             type: Sequelize.STRING,
             allowNull: false
         },
+        code: {
+            type: Sequelize.STRING,
+            allowNull: false,
+        },
         logo: {
             type: Sequelize.STRING,
             allowNull: true

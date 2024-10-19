@@ -4,6 +4,7 @@
 
     <div class="list-container">
       <img src="../../icons/plus.png" id="plus-icon" @click="addItem()" />
+      <img src="../../icons/refresh.png" id="refresh-icon" @click="refreshUrl()" />
       <label v-show="createdItems.length > 0" id="list-header-label">Prodotti</label>
 
       <label v-show="createdItems.length > 0" id="product-label">Nome prodotto</label>
@@ -32,6 +33,10 @@
 
 .list-container {
   display: block;
+}
+#plus-icon,
+#refresh-icon {
+  display: inline-block !important;
 }
 
 img {
@@ -74,6 +79,16 @@ export default {
     };
   },
   methods: {
+    async refreshUrl() {
+      await axios.get(
+        import.meta.env.VITE_API_URL +
+          ":3002/v2/api/stores/store/" +
+          this.storeCode +
+          "/correctUrl"
+      );
+      window.location.reload();
+    },
+
     addItem() {
       this.createdItems.push(this.createdItems.length);
     },
@@ -110,6 +125,7 @@ export default {
         )
         .then((res) => {
           this.flyerUrl = res.data.item.flyerUrl;
+          this.storeCode = res.data.item.code;
         });
     },
   },

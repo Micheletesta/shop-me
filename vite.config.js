@@ -21,6 +21,8 @@ export default defineConfig(({ mode }) => {
   } else {
     API_URL = 'http://localhost:5174';
     PORT = '5174';
+    env.VITE_API_URL = API_URL
+    env.VITE_PORT = PORT
   }
   return {
     server: {

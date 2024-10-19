@@ -58,4 +58,35 @@ export default async function Store(fastify) {
         reply.code(200)
         return fastify.outcome.success("Lista stores recuperati", storeRetrieved, "item")
     }
+
+    fastify.route({
+        method: "GET",
+        path: "/stores/store/:store/correctUrl",
+        schema: {
+
+        },
+        handler: onGetCorrectUrl
+    })
+
+    async function onGetCorrectUrl(request, reply) {
+        try {
+            let store = request.params.store
+            const href = await fastify.scrapingFacility.scrapedItemsFromWebsites(store)
+            await fastify.sequelizeFacility.insertOrUpdate(fastify.database.models.Stores,
+                {
+                    code: store
+                },
+                {
+                    flyerUrl: "https://www.doveconviene.it" + href[0]
+                }
+            )
+        } catch (error) {
+            fastify.log.error("Errore in fase di recupero url aggiornato");
+            fastify.log.error(error)
+            reply.code(500)
+            return fastify.outcome.failed("PROBLEMI")
+        }
+        reply.code(200)
+        return fastify.outcome.success("Url aggiornato con successo")
+    }
 }
