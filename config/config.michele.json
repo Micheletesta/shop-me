@@ -27,7 +27,8 @@
     },
     "server": {
         "port": 3002,
-        "listenAddr": "192.168.1.65"
+        "listenAddr": "192.168.1.65",
+        "zeroTierAddr": "172.28.214.10"
     },
     "maxAdvisedItemsHomePage": 4,
     "fileStorage": {
