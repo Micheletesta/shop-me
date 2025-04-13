@@ -12,7 +12,10 @@
           </th>
           <th class="cell-row qty-header">Quantità</th>
           <th class="cell-row uom-header">UdM</th>
-          <th class="cell-row">Modifica</th>
+          <th v-show="selectedStore == 'farmaci'" class="cell-row exp-header">
+            Scadenza (gg-mm-aaaa)
+          </th>
+          <th class="cell-row">Salva</th>
           <th class="cell-row">Elimina</th>
         </tr>
         <tbody>
@@ -33,7 +36,7 @@
                 :value="item.qty"
               />
             </td>
-            <td class="cell-row qty-cell">
+            <td class="cell-row uom-cell">
               <input
                 type="text"
                 :id="'uom-' + item.id"
@@ -41,18 +44,24 @@
                 :value="item.uom"
               />
             </td>
+
+            <td class="cell-row exp-cell">
+              <input type="text" :id="'exp-'+item.id" class="article-input"
+              :value="item.expiration"
+            </td>
+
             <td class="cell-row">
               <img
                 src="../../icons/editing.png"
                 class="edit-icon"
-                @click="editRow(item)"
+                @click="editRow(item, itemsForStorage.indexOf(item))"
               />
             </td>
             <td class="cell-row">
               <img
                 src="../../icons/remove.png"
                 class="remove-icon"
-                @click="deleteRow(item)"
+                @click="deleteRow(item, itemsForStorage.indexOf(item))"
               />
             </td>
           </tr>
@@ -79,7 +88,8 @@
   width: 20%;
 }
 
-.qty-cell {
+.qty-cell,
+.uom-cell {
   width: 20%;
 }
 
@@ -91,6 +101,9 @@
   width: 20%;
 }
 
+.uom-cell {
+  width: 5%;
+}
 .cell-row {
   text-align: center;
 }
@@ -161,21 +174,54 @@ export default {
         });
     },
     addRow() {
+      let itemIndex = 0;
+      for (let itemForStorage of this.itemsForStorage) {
+        if (!itemForStorage.name) {
+          let item = {
+            name: document.querySelectorAll(".article-cell input")[itemIndex].value,
+            qty: document.querySelectorAll(".qty-cell input")[itemIndex].value,
+            uom: document.querySelectorAll(".uom-cell input")[itemIndex].value,
+            expiration: document.querySelectorAll(".exp-cell input")[itemIndex].value,
+          };
+          this.itemsForStorage[itemIndex] = item;
+        }
+        itemIndex++;
+      }
+
       this.itemsForStorage.push({
         location: this.selectedStore,
       });
     },
-    editRow(item) {
-      item.name = document.getElementById("item-" + item.id).value;
-      item.qty = document.getElementById("qty-" + item.id).value;
-      item.uom = document.getElementById("uom-" + item.id).value;
+    editRow(item, index) {
+      // item.name = document.getElementById("item-" + item.id).value;
+      // item.qty = document.getElementById("qty-" + item.id).value;
+      // item.uom = document.getElementById("uom-" + item.id).value;
+
+      item.name = document.querySelectorAll(".article-cell input")[index].value;
+      item.qty = document.querySelectorAll(".qty-cell input")[index].value;
+      item.uom = document.querySelectorAll(".uom-cell input")[index].value;
+      (item.expiration = document.querySelectorAll(".exp-cell input")[index].value),
+        (item.location = item.location ? item.location : this.selectedStore);
       axios
         .post(import.meta.env.VITE_API_URL + ":3002/v2/api/storages/storage", [item])
         .then((res) => {
+          let itemIndex = 0;
+          for (let itemForStorage of this.itemsForStorage) {
+            if (!itemForStorage.name) {
+              let item = {
+                name: document.querySelectorAll(".article-cell input")[itemIndex].value,
+                qty: document.querySelectorAll(".qty-cell input")[itemIndex].value,
+                uom: document.querySelectorAll(".uom-cell input")[itemIndex].value,
+                expiration: document.querySelectorAll(".exp-cell input")[itemIndex].value,
+              };
+              this.itemsForStorage[itemIndex] = item;
+            }
+            itemIndex++;
+          }
           console.log("elemento modificato con successo");
         });
     },
-    deleteRow(item) {
+    deleteRow(item, itemIndex) {
       if (item.id) {
         axios
           .get(
@@ -187,9 +233,7 @@ export default {
             this.retrieveItemsForSelectedStorage(this.selectedStore);
           });
       } else {
-        // console.log(event);
-        // console.log(event.srcElement);
-        // console.log(item);
+        this.itemsForStorage.splice(itemIndex, 1);
       }
     },
   },

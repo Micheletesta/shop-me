@@ -118,6 +118,9 @@ export default async function Storage(fastify) {
         let itemsRetrieved
         try {
             itemsRetrieved = await fastify.database.models.Storage.findAll({
+                order: [
+                    ['location', 'ASC'],
+                ],
                 attributes: [
                     [fastify.database.sequelize.fn("DISTINCT", fastify.database.sequelize.col("location")), "location"]]
             })

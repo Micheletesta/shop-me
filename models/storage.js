@@ -23,6 +23,10 @@ const Storage = (sequelize) =>
         location: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+        expiration: {
+            type: Sequelize.STRING,
+            allowNull: true
         }
     }, {
         freezeTableName: true,
